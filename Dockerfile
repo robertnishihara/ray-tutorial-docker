@@ -35,7 +35,7 @@ RUN pip install numpy \
 
 RUN pip install git+https://github.com/robertnishihara/ray.git@3ce394764276772bc9e9a1e1ac026363a4cd18ea#subdirectory=python
 
-COPY exercises /home/$NB_USER/
-COPY rl_exercises /home/$NB_USER/
+COPY exercises/*.ipynb /home/$NB_USER/exercises/
+COPY rl_exercises/*.ipynb /home/$NB_USER/rl_exercises/
 
 CMD cd /home/$NB_USER && start-notebook.sh
