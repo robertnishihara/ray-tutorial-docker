@@ -33,7 +33,7 @@ RUN pip install numpy \
     opencv-python \
     scipy
 
-RUN pip install git+https://github.com/robertnishihara/ray.git@44682b72b0d6572fafe558747932e2d2a745a1ce#subdirectory=python
+RUN pip install git+https://github.com/robertnishihara/ray.git@5e96571ebe138a6cbf381e86624d7c96757dc173#subdirectory=python
 
 COPY exercises/*.ipynb /home/$NB_USER/exercises/
 COPY rl_exercises/*.ipynb /home/$NB_USER/rl_exercises/
