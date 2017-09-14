@@ -37,5 +37,9 @@ RUN pip install git+https://github.com/robertnishihara/ray.git@3ce394764276772bc
 
 COPY exercises/*.ipynb /home/$NB_USER/exercises/
 COPY rl_exercises/*.ipynb /home/$NB_USER/rl_exercises/
+COPY rl_exercises/pong_py_no_git /home/$NB_USER/rl_exercises/pong_py_no_git
+COPY rl_exercises/javascript-pong /home/$NB_USER/rl_exercises/javascript-pong
+
+RUN pip install /home/$NB_USER/rl_exercises/pong_py_no_git
 
 CMD cd /home/$NB_USER && start-notebook.sh
