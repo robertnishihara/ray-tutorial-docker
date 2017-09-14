@@ -454,7 +454,8 @@ Pong = {
       var self = this;
 
       // var predict_url = `${window.location.href}/predict`;
-      var predict_url = "predict";
+      // var predict_url = "predict";
+      var predict_url = "http://localhost:3000";
       // Query Clipper via the Pong server proxy
       fetch(predict_url, {
         method: 'POST',
