@@ -50,4 +50,5 @@ RUN pip install /home/$NB_USER/rl_exercises/summarization
 # Precompute some data to speed up creating a summarization environment.
 RUN python -c "import summarization"
 
-CMD cd /home/$NB_USER && start-notebook.sh
+COPY ./start-container.sh /opt
+CMD cd /home/$NB_USER && /opt/start-container.sh
