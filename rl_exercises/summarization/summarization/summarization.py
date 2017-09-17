@@ -63,7 +63,8 @@ def summarize(agent, document):
 
     return " ".join(result)
 
-filepath_to_store_data = '/tmp/precomputed_summarization_data.pickle'
+
+filepath_to_store_data = os.path.join(os.environ['HOME'], 'work', 'precomputed_summarization_data.pickle')
 
 def precompute_stuff():
     if os.path.isfile(filepath_to_store_data):
