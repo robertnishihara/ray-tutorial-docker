@@ -7,6 +7,8 @@ import csv
 import gym
 import gym.spaces
 import numpy as np
+import os
+import pickle
 import random
 import sys
 from spacy.en import English
@@ -25,11 +27,62 @@ class WordSequencePair(gym.Space):
         self.past_context_size = past_context_size
         self.future_context_size = future_context_size
 
+parser = English()
+
 def preprocess_document(parser, document):
     parsed_document = parser(document)
     sentences = [sentence.string.strip() for sentence in parsed_document.sents]
     vectors = [sentence.vector for sentence in parsed_document.sents]
     return sentences, vectors
+
+def summarize(agent, document):
+    sentences, vectors = preprocess_document(parser, document)
+    datapoint = Datapoint(text_sentences=sentences,
+                          summary_sentences=sentences,
+                          text_vectors=vectors,
+                          summary_vectors=vectors)
+    env = gym.make('SimpleSummarization-v0')
+    env.data = [datapoint]
+
+    state = env.reset()
+
+    result = []
+
+    done = False
+
+    i = 0
+
+    while not done:
+        action = agent.compute_action(agent.model.preprocessor.transform(state))
+        state, reward, done, _ = env.step(action)
+
+        if action == 1:
+            result.append(sentences[i])
+
+        i += 1
+
+    return " ".join(result)
+
+filepath_to_store_data = '/tmp/precomputed_summarization_data.pickle'
+
+def precompute_stuff():
+    if os.path.isfile(filepath_to_store_data):
+        return
+
+    data = []
+    csv.field_size_limit(sys.maxsize)
+    filepath = "/tmp/wikipedia-summaries.csv"
+    with open(filepath) as f:
+        reader = csv.reader(f, delimiter=",", quotechar="|", quoting=csv.QUOTE_MINIMAL)
+        for row in reader:
+            sentences1, vectors1 = preprocess_document(parser, row[0])
+            sentences2, vectors2 = preprocess_document(parser, row[1])
+            data.append(Datapoint(text_sentences=sentences1,
+                                       summary_sentences=sentences2,
+                                       text_vectors=vectors1,
+                                       summary_vectors=vectors2))
+    pickle.dump(data, open(filepath_to_store_data, 'wb'))
+
 
 class SummarizationEnv(gym.Env):
 
@@ -39,23 +92,24 @@ class SummarizationEnv(gym.Env):
         # words in the summary
         self.observation_space = WordSequencePair(4, 4)
         self.scorer = Rouge()
-        self.data = []
-        print("Processing dataset, this can take a few minutes...")
-        parser = English()
-        csv.field_size_limit(sys.maxsize)
-        with open(filepath) as f:
-            reader = csv.reader(f, delimiter=",", quotechar="|", quoting=csv.QUOTE_MINIMAL)
-            for row in reader:
-                sentences1, vectors1 = preprocess_document(parser, row[0])
-                sentences2, vectors2 = preprocess_document(parser, row[1])
-                self.data.append(Datapoint(text_sentences=sentences1,
-                                           summary_sentences=sentences2,
-                                           text_vectors=vectors1,
-                                           summary_vectors=vectors2))
+        self.data = pickle.load(open(filepath_to_store_data, 'rb'))
+        # self.data = []
+        # print("Processing dataset, this can take a few minutes...")
+        # parser = English()
+        # csv.field_size_limit(sys.maxsize)
+        # with open(filepath) as f:
+        #     reader = csv.reader(f, delimiter=",", quotechar="|", quoting=csv.QUOTE_MINIMAL)
+        #     for row in reader:
+        #         sentences1, vectors1 = preprocess_document(parser, row[0])
+        #         sentences2, vectors2 = preprocess_document(parser, row[1])
+        #         self.data.append(Datapoint(text_sentences=sentences1,
+        #                                    summary_sentences=sentences2,
+        #                                    text_vectors=vectors1,
+        #                                    summary_vectors=vectors2))
         self.reset()
 
     def reset(self):
-        self.current_document = random.randint(1, len(self.data)-1)
+        self.current_document = random.randint(0, len(self.data) - 1)
         self.current_token = 0
         self.prediction_so_far = []
         self.last_score = 0.0

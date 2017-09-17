@@ -36,14 +36,18 @@ RUN pip install numpy \
 
 RUN python -m spacy download en
 
-RUN pip install git+https://github.com/robertnishihara/ray.git@5e96571ebe138a6cbf381e86624d7c96757dc173#subdirectory=python
+RUN pip install git+https://github.com/robertnishihara/ray.git@dbaf21a3273e3bb21300ed87e2d71c0a0c69b6b9#subdirectory=python
 
 COPY exercises/*.ipynb /home/$NB_USER/exercises/
 COPY rl_exercises/*.ipynb /home/$NB_USER/rl_exercises/
 COPY rl_exercises/pong_py_no_git /home/$NB_USER/rl_exercises/pong_py_no_git
 COPY rl_exercises/javascript-pong /home/$NB_USER/rl_exercises/javascript-pong
+COPY rl_exercises/summarization /home/$NB_USER/rl_exercises/summarization
 
 RUN pip install /home/$NB_USER/rl_exercises/pong_py_no_git
 RUN pip install /home/$NB_USER/rl_exercises/summarization
+
+# Precompute some data to speed up creating a summarization environment.
+RUN python -c "import summarization"
 
 CMD cd /home/$NB_USER && start-notebook.sh

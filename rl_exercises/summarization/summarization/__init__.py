@@ -7,7 +7,7 @@ import os.path
 import shutil
 import urllib.request
 
-from .summarization import SummarizationEnv, Word2VecPreprocessor
+from .summarization import SummarizationEnv, Word2VecPreprocessor, precompute_stuff, summarize
 
 from gym.envs.registration import register
 from ray.rllib.models.catalog import ModelCatalog
@@ -18,6 +18,10 @@ if not os.path.isfile("/tmp/wikipedia-summaries.csv"):
     source = gzip.GzipFile(fileobj=response)
     with open("/tmp/wikipedia-summaries.csv", "wb") as target:
         shutil.copyfileobj(source, target)
+
+precompute_stuff()
+
+
 
 register(id='SimpleSummarization-v0', entry_point='summarization:SummarizationEnv', kwargs={"filepath": "/tmp/wikipedia-summaries.csv"}, nondeterministic=False)
 
