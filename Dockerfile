@@ -36,7 +36,7 @@ RUN pip install numpy \
 
 RUN python -m spacy download en
 
-RUN pip install git+https://github.com/robertnishihara/ray.git@dbaf21a3273e3bb21300ed87e2d71c0a0c69b6b9#subdirectory=python
+RUN pip install git+https://github.com/robertnishihara/ray.git@a1b26d410bb59a04b0043c740cd364ef2b72ca67#subdirectory=python
 
 COPY exercises/*.ipynb /home/$NB_USER/exercises/
 COPY rl_exercises/*.ipynb /home/$NB_USER/rl_exercises/
