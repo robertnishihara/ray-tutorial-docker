@@ -130,7 +130,7 @@ class SummarizationEnv(gym.Env):
             return (self.observation_space.past_context_size * [null_sentence],
                     self.observation_space.future_context_size * [null_sentence]), 0.0, self.done, {}
         self.current_token += 1
-        score = self.scorer.calculate_score(summary, self.prediction_so_far)
+        score = self.scorer.calculate_score(summary, self.prediction_so_far) - 0.005 * len(self.prediction_so_far)
         reward = score - self.last_score
         self.last_score = score
         self.done = self.current_token == len(summary) or self.current_token >= len(text) - 1
