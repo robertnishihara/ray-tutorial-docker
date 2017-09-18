@@ -35,6 +35,8 @@ RUN pip install numpy \
     spacy
 
 RUN conda install -y ipywidgets
+RUN jupyter nbextension install --py widgetsnbextension --user
+RUN jupyter nbextension enable widgetsnbextension --user --py
 
 RUN python -m spacy download en
 
