@@ -34,6 +34,8 @@ RUN pip install numpy \
     scipy \
     spacy
 
+RUN conda install -y ipywidgets
+
 RUN python -m spacy download en
 
 RUN pip install git+https://github.com/robertnishihara/ray.git@a1b26d410bb59a04b0043c740cd364ef2b72ca67#subdirectory=python
