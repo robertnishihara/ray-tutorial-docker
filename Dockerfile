@@ -39,7 +39,7 @@ RUN jupyter nbextension enable widgetsnbextension --user --py
 
 RUN python -m spacy download en
 
-RUN pip install git+https://github.com/robertnishihara/ray.git@a1b26d410bb59a04b0043c740cd364ef2b72ca67#subdirectory=python
+RUN pip install ray==0.5.2
 
 COPY ./install-flow.sh /opt
 RUN /opt/install-flow.sh
