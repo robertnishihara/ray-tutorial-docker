@@ -1,4 +1,4 @@
-sudo apt-get install cmake swig libgtest-dev autoconf libtool pkg-config libgdal-dev libxerces-c-dev libproj-dev libfox-1.6-dev libxml2-dev libxslt1-dev build-essential curl unzip flex bison
+apt-get install cmake swig libgtest-dev autoconf libtool pkg-config libgdal-dev libxerces-c-dev libproj-dev libfox-1.6-dev libxml2-dev libxslt1-dev build-essential curl unzip flex bison
 
 pip install cmake cython opencv-python
 
