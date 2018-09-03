@@ -42,7 +42,7 @@ RUN python -m spacy download en
 RUN pip install ray==0.5.2
 
 COPY ./install-flow.sh /opt
-RUN /opt/install-flow.sh
+RUN bash /opt/install-flow.sh
 
 COPY exercises/*.ipynb /home/$NB_USER/exercises/
 COPY rl_exercises/*.ipynb /home/$NB_USER/rl_exercises/
