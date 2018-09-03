@@ -26,9 +26,8 @@ RUN pip install numpy \
     psutil \
     redis \
     flatbuffers \
-    cloudpickle==0.3.0 \
-    tensorflow==1.3.0 \
-    gym==0.9.2 \
+    tensorflow==1.10.0 \
+    gym==0.10.5 \
     smart_open \
     opencv-python \
     scipy \
@@ -41,6 +40,9 @@ RUN jupyter nbextension enable widgetsnbextension --user --py
 RUN python -m spacy download en
 
 RUN pip install git+https://github.com/robertnishihara/ray.git@a1b26d410bb59a04b0043c740cd364ef2b72ca67#subdirectory=python
+
+COPY ./install-flow.sh /opt
+RUN /opt/install-flow.sh
 
 COPY exercises/*.ipynb /home/$NB_USER/exercises/
 COPY rl_exercises/*.ipynb /home/$NB_USER/rl_exercises/
