@@ -41,6 +41,10 @@ RUN python -m spacy download en
 
 RUN pip install ray==0.5.2
 
+# Install flow
+
+RUN apt-get install cmake swig libgtest-dev autoconf libtool pkg-config libgdal-dev libxerces-c-dev libproj-dev libfox-1.6-dev libxml2-dev libxslt1-dev build-essential curl unzip flex bison
+
 COPY ./install-flow.sh /opt
 RUN bash /opt/install-flow.sh
 
