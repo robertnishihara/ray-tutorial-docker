@@ -14,4 +14,4 @@ cd ~
 git clone https://github.com/pcmoritz/flow.git
 cd flow
 git checkout web3d
-python setup.py develop
+pip install -e . --ignore-installed six
