@@ -15,9 +15,3 @@ git clone https://github.com/pcmoritz/flow.git
 cd flow
 git checkout web3d
 python setup.py develop
-
-# Download sumo_web3d
-git clone https://github.com/ray-project/sumo-web3d/
-cd sumo-web3d
-git checkout flow
-python setup.py develop

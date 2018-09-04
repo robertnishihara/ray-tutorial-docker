@@ -58,6 +58,8 @@ RUN pip install ray==0.5.2
 
 COPY ./install-flow.sh /opt
 RUN bash /opt/install-flow.sh
+COPY ./install-web3d.sh /opt
+RUN bash /opt/install-web3d.sh
 
 COPY exercises/*.ipynb /home/$NB_USER/exercises/
 COPY rl_exercises/*.ipynb /home/$NB_USER/rl_exercises/
