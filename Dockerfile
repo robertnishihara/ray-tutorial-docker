@@ -15,6 +15,7 @@ RUN apt-get update \
     libtool \
     unzip
 
+# Flow dependencies
 RUN apt-get install  -y swig \
     libgtest-dev \
     autoconf \
@@ -39,7 +40,7 @@ RUN pip install numpy \
     psutil \
     redis \
     flatbuffers \
-    tensorflow==1.10.0 \
+    tensorflow==1.8.0 \
     gym==0.10.5 \
     smart_open \
     opencv-python \
@@ -53,8 +54,6 @@ RUN jupyter nbextension enable widgetsnbextension --user --py
 RUN python -m spacy download en
 
 RUN pip install ray==0.5.2
-
-RUN pip install tensorflow==1.8.0 --upgrade
 
 # Install flow
 
