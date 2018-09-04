@@ -69,13 +69,13 @@ COPY exercises/*.ipynb /home/$NB_USER/exercises/
 COPY rl_exercises/*.ipynb /home/$NB_USER/rl_exercises/
 COPY rl_exercises/pong_py_no_git /home/$NB_USER/rl_exercises/pong_py_no_git
 COPY rl_exercises/javascript-pong /home/$NB_USER/rl_exercises/javascript-pong
-COPY rl_exercises/summarization /home/$NB_USER/rl_exercises/summarization
+# COPY rl_exercises/summarization /home/$NB_USER/rl_exercises/summarization
 
 RUN pip install /home/$NB_USER/rl_exercises/pong_py_no_git
-RUN pip install /home/$NB_USER/rl_exercises/summarization
+# RUN pip install /home/$NB_USER/rl_exercises/summarization
 
 # Precompute some data to speed up creating a summarization environment.
-RUN python -c "import summarization"
+# RUN python -c "import summarization"
 
 # Finalize environment and boot notebook.
 USER root
