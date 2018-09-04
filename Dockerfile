@@ -15,7 +15,18 @@ RUN apt-get update \
     libtool \
     unzip
 
-RUN apt-get install cmake swig libgtest-dev autoconf libtool pkg-config libgdal-dev libxerces-c-dev libproj-dev libfox-1.6-dev libxml2-dev libxslt1-dev build-essential curl unzip flex bison
+RUN apt-get install  -y swig \
+    libgtest-dev \
+    autoconf \
+    pkg-config \
+    libgdal-dev \
+    libxerces-c-dev \
+    libproj-dev \
+    libfox-1.6-dev \
+    libxml2-dev \
+    libxslt1-dev \
+    flex \
+    bison
 
 USER $NB_USER
 
