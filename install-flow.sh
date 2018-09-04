@@ -1,8 +1,5 @@
 pip install cmake cython opencv-python
 
-pip uninstall tensorflow
-pip install tensorflow==1.10.0 --upgrade
-
 # Install Flow
 cd ~
 git clone https://github.com/pcmoritz/flow.git
