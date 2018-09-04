@@ -54,7 +54,7 @@ RUN python -m spacy download en
 
 RUN pip install ray==0.5.2
 
-RUN pip install tensorflow==1.9.0 --upgrade
+RUN pip install tensorflow==1.8.0 --upgrade
 
 # Install flow
 
